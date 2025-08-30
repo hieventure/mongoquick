@@ -1,37 +1,4 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || (function () {
-    var ownKeys = function(o) {
-        ownKeys = Object.getOwnPropertyNames || function (o) {
-            var ar = [];
-            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
-            return ar;
-        };
-        return ownKeys(o);
-    };
-    return function (mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        __setModuleDefault(result, mod);
-        return result;
-    };
-})();
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -92,28 +59,15 @@ class InteractiveWizard {
                     filter: (input) => input.trim().toLowerCase(),
                 },
             ]);
-            // Ask for features
-            const { createIndexes } = await inquirer_1.default.prompt([
-                {
-                    type: 'confirm',
-                    name: 'createIndexes',
-                    message: 'Create optimized indexes? (Recommended for better performance)',
-                    default: true,
-                },
-            ]);
             // Show summary
             console.log('\n📋 Setup Summary:\n');
             console.log(`   Database name: ${databaseName}`);
-            console.log(`   Optimized indexes: ${createIndexes ? '✅ Yes' : '❌ No'}`);
-            if (createIndexes) {
-                console.log('\n   📊 Indexes will be created for common collections');
-            }
             // Confirm
             const { confirmed } = await inquirer_1.default.prompt([
                 {
                     type: 'confirm',
                     name: 'confirmed',
-                    message: 'Ready to create your optimized MongoDB setup?',
+                    message: 'Ready to create your MongoDB database?',
                     default: true,
                 },
             ]);
@@ -122,7 +76,7 @@ class InteractiveWizard {
                 return;
             }
             // Setup
-            console.log('\n🚀 Creating your optimized MongoDB setup...\n');
+            console.log('\n🚀 Creating your MongoDB database...\n');
             const config = (0, index_1.createMongoConfigFromEnv)();
             config.database = databaseName;
             const initOptions = {
@@ -130,16 +84,6 @@ class InteractiveWizard {
                 createDatabase: true,
                 verbose: true,
             };
-            if (createIndexes) {
-                const { COMMON_INDEXES } = await Promise.resolve().then(() => __importStar(require('../config/defaults')));
-                initOptions.createIndexes = [
-                    { collection: 'users', indexes: COMMON_INDEXES.users },
-                    { collection: 'sessions', indexes: COMMON_INDEXES.sessions },
-                    { collection: 'events', indexes: COMMON_INDEXES.events },
-                    { collection: 'teams', indexes: COMMON_INDEXES.teams },
-                    { collection: 'votes', indexes: COMMON_INDEXES.votes },
-                ];
-            }
             await (0, index_1.initializeMongo)(initOptions);
             // Success
             console.log('\n🎉 ✨ Magic complete! ✨');

@@ -1,7 +1,7 @@
 {
   "name": "@derikhie/mongoquick",
-  "version": "1.0.2",
-  "description": "⚡ Simple MongoDB toolkit for Node.js - Zero config, instant setup, production-ready",
+  "version": "2.0.0",
+  "description": "⚡ Simple MongoDB connection tester and database initializer - Zero config, instant setup",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {

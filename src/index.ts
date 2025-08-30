@@ -8,7 +8,7 @@ export { MongoConnection } from './utils/connection';
 export { MongoInitializer } from './utils/initializer';
 
 // Export config
-export { DEFAULT_MONGO_CONFIG, COMMON_INDEXES, createMongoConfigFromEnv } from './config/defaults';
+export { DEFAULT_MONGO_CONFIG, createMongoConfigFromEnv } from './config/defaults';
 
 // Main initialization function
 export async function initializeMongo(options: Partial<import('./types').InitOptions> = {}) {
@@ -51,7 +51,7 @@ export async function testConnection(config?: import('./types').MongoConfig) {
 
 // CLI helper for quick setup
 export async function quickSetup(databaseName?: string) {
-  const { createMongoConfigFromEnv, COMMON_INDEXES } = await import('./config/defaults');
+  const { createMongoConfigFromEnv } = await import('./config/defaults');
 
   const config = createMongoConfigFromEnv();
   if (databaseName) {
@@ -61,13 +61,6 @@ export async function quickSetup(databaseName?: string) {
   await initializeMongo({
     config,
     createDatabase: true,
-    createIndexes: [
-      { collection: 'users', indexes: COMMON_INDEXES.users },
-      { collection: 'sessions', indexes: COMMON_INDEXES.sessions },
-      { collection: 'events', indexes: COMMON_INDEXES.events },
-      { collection: 'teams', indexes: COMMON_INDEXES.teams },
-      { collection: 'votes', indexes: COMMON_INDEXES.votes },
-    ],
     verbose: true,
   });
 }

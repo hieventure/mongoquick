@@ -63,31 +63,16 @@ export class InteractiveWizard {
         },
       ]);
 
-      // Ask for features
-      const { createIndexes } = await inquirer.prompt([
-        {
-          type: 'confirm',
-          name: 'createIndexes',
-          message: 'Create optimized indexes? (Recommended for better performance)',
-          default: true,
-        },
-      ]);
-
       // Show summary
       console.log('\n📋 Setup Summary:\n');
       console.log(`   Database name: ${databaseName}`);
-      console.log(`   Optimized indexes: ${createIndexes ? '✅ Yes' : '❌ No'}`);
-
-      if (createIndexes) {
-        console.log('\n   📊 Indexes will be created for common collections');
-      }
 
       // Confirm
       const { confirmed } = await inquirer.prompt([
         {
           type: 'confirm',
           name: 'confirmed',
-          message: 'Ready to create your optimized MongoDB setup?',
+          message: 'Ready to create your MongoDB database?',
           default: true,
         },
       ]);
@@ -98,7 +83,7 @@ export class InteractiveWizard {
       }
 
       // Setup
-      console.log('\n🚀 Creating your optimized MongoDB setup...\n');
+      console.log('\n🚀 Creating your MongoDB database...\n');
       const config = createMongoConfigFromEnv();
       config.database = databaseName;
 
@@ -107,17 +92,6 @@ export class InteractiveWizard {
         createDatabase: true,
         verbose: true,
       };
-
-      if (createIndexes) {
-        const { COMMON_INDEXES } = await import('../config/defaults');
-        initOptions.createIndexes = [
-          { collection: 'users', indexes: COMMON_INDEXES.users },
-          { collection: 'sessions', indexes: COMMON_INDEXES.sessions },
-          { collection: 'events', indexes: COMMON_INDEXES.events },
-          { collection: 'teams', indexes: COMMON_INDEXES.teams },
-          { collection: 'votes', indexes: COMMON_INDEXES.votes },
-        ];
-      }
 
       await initializeMongo(initOptions);
 

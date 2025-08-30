@@ -37,7 +37,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createMongoConfigFromEnv = exports.COMMON_INDEXES = exports.DEFAULT_MONGO_CONFIG = exports.MongoInitializer = exports.MongoConnection = void 0;
+exports.createMongoConfigFromEnv = exports.DEFAULT_MONGO_CONFIG = exports.MongoInitializer = exports.MongoConnection = void 0;
 exports.initializeMongo = initializeMongo;
 exports.testConnection = testConnection;
 exports.quickSetup = quickSetup;
@@ -51,7 +51,6 @@ Object.defineProperty(exports, "MongoInitializer", { enumerable: true, get: func
 // Export config
 var defaults_1 = require("./config/defaults");
 Object.defineProperty(exports, "DEFAULT_MONGO_CONFIG", { enumerable: true, get: function () { return defaults_1.DEFAULT_MONGO_CONFIG; } });
-Object.defineProperty(exports, "COMMON_INDEXES", { enumerable: true, get: function () { return defaults_1.COMMON_INDEXES; } });
 Object.defineProperty(exports, "createMongoConfigFromEnv", { enumerable: true, get: function () { return defaults_1.createMongoConfigFromEnv; } });
 // Main initialization function
 async function initializeMongo(options = {}) {
@@ -88,7 +87,7 @@ async function testConnection(config) {
 }
 // CLI helper for quick setup
 async function quickSetup(databaseName) {
-    const { createMongoConfigFromEnv, COMMON_INDEXES } = await Promise.resolve().then(() => __importStar(require('./config/defaults')));
+    const { createMongoConfigFromEnv } = await Promise.resolve().then(() => __importStar(require('./config/defaults')));
     const config = createMongoConfigFromEnv();
     if (databaseName) {
         config.database = databaseName;
@@ -96,13 +95,6 @@ async function quickSetup(databaseName) {
     await initializeMongo({
         config,
         createDatabase: true,
-        createIndexes: [
-            { collection: 'users', indexes: COMMON_INDEXES.users },
-            { collection: 'sessions', indexes: COMMON_INDEXES.sessions },
-            { collection: 'events', indexes: COMMON_INDEXES.events },
-            { collection: 'teams', indexes: COMMON_INDEXES.teams },
-            { collection: 'votes', indexes: COMMON_INDEXES.votes },
-        ],
         verbose: true,
     });
 }
