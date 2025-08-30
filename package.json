@@ -1,7 +1,7 @@
 {
   "name": "@derikhie/mongoquick",
-  "version": "2.0.0",
-  "description": "⚡ Simple MongoDB connection tester and database initializer - Zero config, instant setup",
+  "version": "2.1.0",
+  "description": "⚡ Smart MongoDB connection management with profiles, testing, and database initialization",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {

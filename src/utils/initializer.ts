@@ -16,36 +16,26 @@ export class MongoInitializer {
       this.logger.info('🚀 Starting MongoDB initialization...');
 
       // Step 1: Connect to MongoDB
-      this.logger.step(1, 6, 'Connecting to MongoDB...');
+      this.logger.step(1, 4, 'Connecting to MongoDB...');
       await this.connection.connect();
 
       // Step 2: Health check
-      this.logger.step(2, 6, 'Performing health check...');
+      this.logger.step(2, 4, 'Performing health check...');
       await this.performHealthCheck();
 
       // Step 3: Create database if needed
       if (this.options.createDatabase) {
-        this.logger.step(3, 6, 'Ensuring database exists...');
+        this.logger.step(3, 4, 'Ensuring database exists...');
         await this.ensureDatabaseExists();
       }
 
       // Step 4: Create users if specified
       if (this.options.createUsers && this.options.createUsers.length > 0) {
-        this.logger.step(4, 6, 'Creating database users...');
+        this.logger.step(4, 4, 'Creating database users...');
         await this.createUsers();
       }
 
-      // Step 5: Create indexes if specified
-      if (this.options.createIndexes && this.options.createIndexes.length > 0) {
-        this.logger.step(5, 6, 'Creating indexes...');
-        await this.createIndexes();
-      }
-
-      // Step 6: Seed data if specified
-      if (this.options.seedData && this.options.seedData.length > 0) {
-        this.logger.step(6, 6, 'Seeding initial data...');
-        await this.seedData();
-      }
+      // Note: Index creation and data seeding removed for simplified scope
 
       this.logger.success('🎉 MongoDB initialization completed successfully!');
     } catch (error) {
@@ -84,7 +74,7 @@ export class MongoInitializer {
       await db.createCollection('_init');
       await db.collection('_init').insertOne({
         initialized: true,
-        timestamp: new Date()
+        timestamp: new Date(),
       });
       this.logger.success(`Database '${this.options.config.database}' created`);
     } else {
@@ -106,59 +96,13 @@ export class MongoInitializer {
         });
         this.logger.success(`Created user: ${user.username}`);
       } catch (error: any) {
-        if (error.code === 51003) { // User already exists
+        if (error.code === 51003) {
+          // User already exists
           this.logger.warn(`User ${user.username} already exists`);
         } else {
           this.logger.error(`Failed to create user ${user.username}:`, error.message);
           throw error;
         }
-      }
-    }
-  }
-
-  private async createIndexes(): Promise<void> {
-    if (!this.options.createIndexes) return;
-
-    const db = this.connection.getDb();
-
-    for (const collectionIndex of this.options.createIndexes) {
-      const collection = db.collection(collectionIndex.collection);
-
-      for (const index of collectionIndex.indexes) {
-        try {
-          const indexName = await collection.createIndex(index.keys, index.options);
-          this.logger.success(`Created index '${indexName}' on collection '${collectionIndex.collection}'`);
-        } catch (error: any) {
-          if (error.code === 85) { // Index already exists
-            this.logger.warn(`Index already exists on collection '${collectionIndex.collection}'`);
-          } else {
-            this.logger.error(`Failed to create index on collection '${collectionIndex.collection}':`, error.message);
-            throw error;
-          }
-        }
-      }
-    }
-  }
-
-  private async seedData(): Promise<void> {
-    if (!this.options.seedData) return;
-
-    const db = this.connection.getDb();
-
-    for (const seedCollection of this.options.seedData) {
-      const collection = db.collection(seedCollection.collection);
-
-      // Check if collection already has data
-      const existingCount = await collection.countDocuments();
-
-      if (existingCount > 0) {
-        this.logger.warn(`Collection '${seedCollection.collection}' already has ${existingCount} documents, skipping seed`);
-        continue;
-      }
-
-      if (seedCollection.data.length > 0) {
-        await collection.insertMany(seedCollection.data);
-        this.logger.success(`Seeded ${seedCollection.data.length} documents to '${seedCollection.collection}'`);
       }
     }
   }

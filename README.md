@@ -1,70 +1,116 @@
 # MongoQuick ⚡
 
-**Simple MongoDB connection tester and database initializer for Node.js**
+**Smart MongoDB connection management with profiles, testing, and database initialization**
 
-Zero-config database connection testing and initialization. Get your MongoDB up and running in 30 seconds.
+Zero-config MongoDB connection management and database setup. Switch between environments instantly, test connections with detailed diagnostics, and initialize databases with confidence.
 
-## Quick Start
+## 🚀 Quick Start
 
 ```bash
 npm install -g @derikhie/mongoquick
-mongoquick
+mongoquick profile add --name local --uri mongodb://localhost:27017
+mongoquick profile list
 ```
 
-The interactive setup will guide you through database creation and connection testing.
+## ✨ What It Does
 
-## What It Does
+**🔗 Smart Connection Management**: Save and switch between multiple MongoDB environments instantly
 
-**Connection Testing**: Verifies MongoDB connectivity and measures latency to ensure your database is accessible.
+**🧪 Connection Testing**: Verify connectivity with detailed health diagnostics including latency, topology, and server version
 
-**Database Setup**: Creates and initializes your MongoDB database with proper configuration.
+**📊 Database Setup**: Create and initialize MongoDB databases with proper configuration
 
-**Health Monitoring**: Provides detailed connection health information and diagnostics.
+**🔒 Secure Storage**: Encrypted credential storage with AES-256-CBC encryption
 
-## Commands
+## 📋 Commands
+
+### Profile Management
 
 ```bash
-mongoquick          # Interactive setup (recommended)
-mongoquick test     # Test MongoDB connection
-mongoquick init     # Initialize database with defaults
-mongoquick help     # Show available commands
+mongoquick profile add --name <name> --uri <uri> [options]    # Add connection profile
+mongoquick profile list [--verbose] [--json]                 # List all profiles
+mongoquick profile use <profile-name>                        # Switch to profile
+mongoquick profile test [profile-name] [--verbose]           # Test connections
+mongoquick profile current                                   # Show current profile
+mongoquick profile remove <profile-name> [--force]          # Remove profile
+mongoquick profile export                                    # Export profiles
 ```
 
-## Usage Examples
-
-### Interactive Setup (Recommended)
+### Database Operations
 
 ```bash
-mongoquick
-# Follow the prompts to:
-# 1. Test your MongoDB connection
-# 2. Name your database
-# 3. Confirm and create
+mongoquick                    # Interactive setup wizard
+mongoquick test               # Test current connection
+mongoquick init --database   # Initialize database
+mongoquick help               # Show all commands
 ```
 
-### Quick Database Initialization
+## 🎯 Usage Examples
+
+### Environment Management
 
 ```bash
-mongoquick init --database my_app
-# Creates 'my_app' database
+# Add your development environment
+mongoquick profile add --name dev --uri mongodb://localhost:27017 --env development
+
+# Add staging with database specification
+mongoquick profile add --name staging --uri mongodb://staging.company.com:27017 --database myapp_staging --env staging
+
+# Add production (Atlas)
+mongoquick profile add --name prod --uri mongodb+srv://cluster.mongodb.net --env production --default
+
+# Switch between environments instantly
+mongoquick profile use dev     # Switch to development
+mongoquick profile use prod    # Switch to production
 ```
 
 ### Connection Testing
 
 ```bash
-mongoquick test
-# Output: ✅ Connection successful! Latency: 5ms
+# Test current environment
+mongoquick profile test
+
+# Test specific environment
+mongoquick profile test prod
+
+# Test all environments with details
+mongoquick profile test --verbose
 ```
 
-## Framework Integration
+### Profile Management
+
+```bash
+# List all your environments
+mongoquick profile list
+┌─────────────────────────────────────────────┐
+│  MongoQuick Profiles (3)                   │
+├─────────────────────────────────────────────┤
+│  🌟 prod      🟥 production               │
+│      URI: mongodb+srv://***:***@cluster... │
+│      Database: myapp                       │
+│                                             │
+│     staging   🟨 staging                   │
+│      URI: mongodb://staging.company...     │
+│      Database: myapp_staging               │
+│                                             │
+│     dev       🟦 development               │
+│      URI: mongodb://localhost:27017        │
+└─────────────────────────────────────────────┘
+
+# Show current environment
+mongoquick profile current
+```
+
+## 🔧 Framework Integration
 
 ### NestJS
 
 ```typescript
 import { MongooseModule } from '@nestjs/mongoose';
 
+// Use your MongoQuick profile
 @Module({
-  imports: [MongooseModule.forRoot('mongodb://localhost:27017/my_app')],
+  imports: [MongooseModule.forRoot('mongodb://localhost:27017/myapp')],
 })
 export class AppModule {}
 ```
@@ -73,7 +119,8 @@ export class AppModule {}
 
 ```javascript
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/my_app');
+// Connect using your MongoQuick profile
+mongoose.connect('mongodb://localhost:27017/myapp');
 ```
 
 ### Pure MongoDB Driver
@@ -81,53 +128,94 @@ mongoose.connect('mongodb://localhost:27017/my_app');
 ```javascript
 const { MongoClient } = require('mongodb');
 const client = new MongoClient('mongodb://localhost:27017');
-await client.db('my_app').collection('users').findOne({});
+await client.db('myapp').collection('users').findOne({});
 ```
 
-## Programmatic API
+## 🛠️ Programmatic API
 
 ```typescript
 import { initializeMongo, testConnection } from '@derikhie/mongoquick';
 
-// Test connection
+// Test connection health
 const health = await testConnection();
 console.log('Connected:', health.isConnected);
+console.log('Latency:', health.latency + 'ms');
 
-// Setup database
+// Initialize database
 await initializeMongo({
   config: {
     uri: 'mongodb://localhost:27017',
-    database: 'my_app',
+    database: 'myapp',
   },
   createDatabase: true,
   verbose: true,
 });
 ```
 
-## Environment Configuration
+## ⚙️ Environment Configuration
 
-Create a `.env` file for custom settings:
+Create a `.env` file for default settings:
 
 ```env
 MONGODB_URI=mongodb://localhost:27017
-DATABASE_NAME=my_app
+DATABASE_NAME=myapp
+MONGOQUICK_KEY=your-encryption-key
 ```
 
 The toolkit automatically detects these variables and uses them as defaults.
 
-## Features
+## ✨ Features
 
-**Simple & Fast**: Just test connections and create databases - no complex setup
-**Zero Dependencies**: Minimal footprint with only essential MongoDB operations
-**Environment Friendly**: Automatically detects connection settings from environment variables
+**🎯 Smart Environment Detection**: Automatically detects environment from profile names and URIs
 
-## Requirements
+**🔐 Secure Credential Storage**: AES-256-CBC encryption keeps your credentials safe
+
+**⚡ Fast Connection Testing**: Concurrent testing with detailed diagnostics
+
+**🎨 Beautiful CLI**: Intuitive interface with helpful error messages and suggestions
+
+**📊 Rich Diagnostics**: Server version, topology, latency, and connection count
+
+**🔄 Environment Switching**: One command to switch between dev, staging, and production
+
+## 🏗️ Add Options
+
+```bash
+mongoquick profile add [options]
+
+Options:
+  --name, -n        Profile name (required)
+  --uri, -u         MongoDB URI (required)
+  --database, -d    Default database name
+  --env, -e         Environment (local, dev, staging, prod)
+  --default         Set as default profile
+```
+
+## 🧪 Connection Health
+
+MongoQuick provides comprehensive connection diagnostics:
+
+- ✅ **Connection Status**: Success/failure with detailed error messages
+- ⚡ **Latency**: Real-time connection speed measurement
+- 🏗️ **Topology**: Single, ReplicaSet, or Sharded cluster detection
+- 📝 **Server Version**: MongoDB version information
+- 🔢 **Active Connections**: Current connection pool status
+- 🔁 **Replica Set**: Primary/secondary status and replica set name
+
+## 🔒 Security
+
+- **Encrypted Storage**: All URIs encrypted with AES-256-CBC
+- **Credential Masking**: Passwords never shown in output or logs
+- **Secure Defaults**: Safe file permissions and storage locations
+- **No Network Leakage**: Credentials never transmitted unencrypted
+
+## 📋 Requirements
 
 - Node.js 16 or higher
 - MongoDB 4.4 or higher (local or remote)
-- Write access to target database
+- Write access to home directory (for profile storage)
 
-## Troubleshooting
+## 🚨 Troubleshooting
 
 **Connection Failed**: Ensure MongoDB is running
 
@@ -144,6 +232,8 @@ docker run -d -p 27017:27017 mongo
 
 **Permission Denied**: Check database user permissions or use admin credentials
 
+**Profile Not Found**: Use `mongoquick profile list` to see available profiles
+
 ---
 
-**Simple MongoDB connection testing and database initialization for developers who want things to just work.**
+**Smart MongoDB connection management for developers who want environment switching to just work.**

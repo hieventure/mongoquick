@@ -8,7 +8,5 @@ export declare class MongoInitializer {
     private performHealthCheck;
     private ensureDatabaseExists;
     private createUsers;
-    private createIndexes;
-    private seedData;
     checkConnection(): Promise<boolean>;
 }

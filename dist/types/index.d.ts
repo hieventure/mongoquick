@@ -1,3 +1,7 @@
+/**
+ * Core types for MongoDB operations and Smart Connection Management
+ */
+export * from './profiles';
 export interface MongoConfig {
     uri: string;
     database: string;
@@ -23,23 +27,6 @@ export interface InitOptions {
     config: MongoConfig;
     createDatabase?: boolean;
     createUsers?: DatabaseUser[];
-    createIndexes?: Array<{
-        collection: string;
-        indexes: Array<{
-            keys: any;
-            options?: {
-                unique?: boolean;
-                sparse?: boolean;
-                background?: boolean;
-                name?: string;
-                expireAfterSeconds?: number;
-            };
-        }>;
-    }>;
-    seedData?: Array<{
-        collection: string;
-        data: any[];
-    }>;
     verbose?: boolean;
 }
 export interface HealthCheckResult {

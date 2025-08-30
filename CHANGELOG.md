@@ -5,6 +5,71 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2024-08-30
+
+### Added
+
+- 🌟 **Smart Connection Management**: Revolutionary profile-based environment management
+- 🔗 **Connection Profiles**: Save, switch, and manage multiple MongoDB environments
+- 🧪 **Advanced Connection Testing**: Comprehensive health diagnostics with latency, topology, and version detection
+- 🔒 **Secure Credential Storage**: AES-256-CBC encryption for sensitive connection strings
+- ⚡ **Instant Environment Switching**: One-command switching between dev, staging, and production
+- 🎨 **Beautiful CLI Interface**: Intuitive commands with helpful error messages and suggestions
+- 📊 **Rich Diagnostics**: Server version, replica set status, connection count, and performance metrics
+- 🔄 **Connection Pooling**: Intelligent connection reuse with auto-cleanup and circuit breaker pattern
+- 🎯 **Smart Environment Detection**: Auto-detection of environment from profile names and URIs
+- 🛡️ **Enterprise Security**: Credential masking, secure file permissions, and encrypted storage
+
+### Enhanced
+
+- 🚀 **CLI Commands**: Expanded command set with comprehensive profile management
+- 📋 **Help System**: Context-aware help with examples and usage guidance
+- 🔍 **Error Handling**: Detailed error messages with actionable suggestions
+- 🎪 **User Experience**: Consistent, beautiful output with environment indicators and status icons
+
+### Performance
+
+- ⚡ **Fast Operations**: Optimized profile operations with intelligent caching
+- 🔄 **Connection Efficiency**: Smart connection pooling reduces overhead
+- 📈 **Concurrent Testing**: Parallel connection testing for multiple profiles
+- 🧹 **Memory Management**: Automatic cleanup of idle connections
+
+### Security
+
+- 🔐 **AES-256-CBC Encryption**: Military-grade encryption for connection strings
+- 🔒 **Credential Protection**: Passwords never exposed in logs or output
+- 📁 **Secure Storage**: Protected configuration files in user home directory
+- 🛡️ **Safe Defaults**: Security-first configuration and error handling
+
+### Developer Experience
+
+- 🎯 **TypeScript Support**: Complete type safety with comprehensive interfaces
+- 📝 **Rich Documentation**: Updated guides with real-world examples
+- 🧪 **Testing Framework**: Comprehensive test suite for reliability
+- 🏗️ **Expert Architecture**: Production-ready code with best practices
+
+### Breaking Changes
+
+- 🗑️ **Removed Automatic Index Creation**: Simplified scope, removed opinionated index creation
+- 🔄 **Updated CLI Structure**: Enhanced command structure for profile management
+
+### Migration Guide
+
+Existing users can continue using MongoQuick for basic database initialization. The new profile management features are additive and don't affect existing workflows.
+
+## [2.0.0] - 2024-08-30
+
+### Changed
+
+- 🔄 **Simplified Core Focus**: Removed automatic index creation for more generic use
+- 🎯 **Connection-First Approach**: Shifted focus to connection testing and database setup
+- 📦 **Reduced Bundle Size**: Removed opinionated features for lighter footprint
+
+### Removed
+
+- ❌ **Automatic Index Creation**: Removed predefined index patterns
+- ❌ **Opinionated Collections**: No more forced collection structures
+
 ## [1.0.0] - 2024-08-30
 
 ### Added
