@@ -49,12 +49,12 @@ async function main() {
       case 'help':
       case '--help':
       case '-h':
-        console.log('⚡ MongoKit - Professional MongoDB toolkit');
+        console.log('⚡ MongoQuick - Professional MongoDB toolkit');
         console.log('\nCommands:');
-        console.log('  mongokit          Start interactive setup (default)');
-        console.log('  mongokit test     Test MongoDB connection');
-        console.log('  mongokit init     Initialize database');
-        console.log('  mongokit help     Show this help');
+        console.log('  mongoquick          Start interactive setup (default)');
+        console.log('  mongoquick test     Test MongoDB connection');
+        console.log('  mongoquick init     Initialize database');
+        console.log('  mongoquick help     Show this help');
         break;
 
       case 'version':

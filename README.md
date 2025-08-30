@@ -1,4 +1,4 @@
-# MongoKit ⚡
+# MongoQuick ⚡
 
 **Professional MongoDB toolkit for Node.js**
 
@@ -7,8 +7,8 @@ Zero-config database initialization with optimized indexes. Get from zero to pro
 ## Quick Start
 
 ```bash
-npm install -g mongokit
-mongokit
+npm install -g @derikhie/mongoquick
+mongoquick
 ```
 
 The interactive setup will guide you through database creation, index optimization, and connection testing.
@@ -30,10 +30,10 @@ The interactive setup will guide you through database creation, index optimizati
 ## Commands
 
 ```bash
-mongokit          # Interactive setup (recommended)
-mongokit test     # Test MongoDB connection
-mongokit init     # Initialize database with defaults
-mongokit help     # Show available commands
+mongoquick          # Interactive setup (recommended)
+mongoquick test     # Test MongoDB connection
+mongoquick init     # Initialize database with defaults
+mongoquick help     # Show available commands
 ```
 
 ## Usage Examples
@@ -41,7 +41,7 @@ mongokit help     # Show available commands
 ### Interactive Setup (Recommended)
 
 ```bash
-mongokit
+mongoquick
 # Follow the prompts to:
 # 1. Test your MongoDB connection
 # 2. Name your database
@@ -52,14 +52,14 @@ mongokit
 ### Quick Database Initialization
 
 ```bash
-mongokit init --database my_app
+mongoquick init --database my_app
 # Creates 'my_app' database with standard indexes
 ```
 
 ### Connection Testing
 
 ```bash
-mongokit test
+mongoquick test
 # Output: ✅ Connection successful! Latency: 5ms
 ```
 
@@ -94,7 +94,7 @@ await client.db('my_app').collection('users').findOne({});
 ## Programmatic API
 
 ```typescript
-import { initializeMongo, testConnection } from 'mongokit';
+import { initializeMongo, testConnection } from '@derikhie/mongoquick';
 
 // Test connection
 const health = await testConnection();

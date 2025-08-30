@@ -46,8 +46,8 @@ class InteractiveWizard {
     }
     async start() {
         console.clear();
-        console.log('\n⚡ 🚀 Welcome to MongoKit! 🚀');
-        console.log("   Professional MongoDB setup made simple!\n");
+        console.log('\n⚡ 🚀 Welcome to MongoQuick! 🚀');
+        console.log('   Professional MongoDB setup made simple!\n');
         try {
             // Test connection
             console.log('🔍 First, let me check your MongoDB connection...\n');
@@ -72,7 +72,7 @@ class InteractiveWizard {
                 },
             ]);
             if (!wantsSetup) {
-                console.log('\n✨ Setup skipped. You can run mongokit init --database <name> later.');
+                console.log('\n✨ Setup skipped. You can run mongoquick init --database <name> later.');
                 return;
             }
             const { databaseName } = await inquirer_1.default.prompt([
@@ -148,13 +148,13 @@ class InteractiveWizard {
             console.log('   1. Connect your application to:');
             console.log(`      mongodb://localhost:27017/${databaseName}`);
             console.log('   2. Start building amazing things!');
-            console.log('   3. Check database health anytime: mongokit test\n');
+            console.log('   3. Check database health anytime: mongoquick test\n');
         }
         catch (error) {
             this.logger.error('Wizard failed:', error);
             console.log('\n💔 Something went wrong. You can try the manual commands:');
-            console.log('  mongokit test    # Test connection');
-            console.log('  mongokit init    # Initialize database');
+            console.log('  mongoquick test    # Test connection');
+            console.log('  mongoquick init    # Initialize database');
         }
     }
 }

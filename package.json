@@ -1,5 +1,5 @@
 {
-  "name": "mongokit",
+  "name": "@derikhie/mongoquick",
   "version": "1.0.0",
   "description": "⚡ Simple MongoDB toolkit for Node.js - Zero config, instant setup, production-ready",
   "main": "dist/index.js",
@@ -10,7 +10,7 @@
     "test": "jest",
     "lint": "eslint src/**/*.ts",
     "format": "prettier --write src/**/*.ts",
-    "postinstall": "node -e \"console.log('\\n⚡ 🚀 Welcome to MongoKit! 🚀\\n\\nGet started instantly:\\n  npx mongokit\\n\\nOr install globally:\\n  npm install -g mongokit\\n  mongokit\\n')\""
+    "postinstall": "node -e \"console.log('\\n⚡ 🚀 Welcome to MongoQuick! 🚀\\n\\nGet started instantly:\\n  npx mongoquick\\n\\nOr install globally:\\n  npm install -g mongoquick\\n  mongoquick\\n')\""
   },
   "keywords": [
     "mongodb",
@@ -27,7 +27,7 @@
     "devtools"
   ],
   "bin": {
-    "mongokit": "dist/cli.js"
+    "mongoquick": "dist/cli.js"
   },
   "files": [
     "dist/**/*",
@@ -40,11 +40,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hieventure/mongokit.git"
+    "url": "https://github.com/hieventure/mongoquick.git"
   },
-  "homepage": "https://github.com/hieventure/mongokit#readme",
+  "homepage": "https://github.com/hieventure/mongoquick#readme",
   "bugs": {
-    "url": "https://github.com/hieventure/mongokit/issues"
+    "url": "https://github.com/hieventure/mongoquick/issues"
   },
   "author": "hieventure <hieulhminh@gmail.com>",
   "dependencies": {
