@@ -1,0 +1,58 @@
+{
+  "name": "mongokit",
+  "version": "1.0.0",
+  "description": "⚡ Simple MongoDB toolkit for Node.js - Zero config, instant setup, production-ready",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/index.ts",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts",
+    "format": "prettier --write src/**/*.ts",
+    "postinstall": "node -e \"console.log('\\n⚡ 🚀 Welcome to MongoKit! 🚀\\n\\nGet started instantly:\\n  npx mongokit\\n\\nOr install globally:\\n  npm install -g mongokit\\n  mongokit\\n')\""
+  },
+  "keywords": [
+    "mongodb",
+    "mongo",
+    "database",
+    "setup",
+    "initialization",
+    "cli",
+    "toolkit",
+    "indexes",
+    "nodejs",
+    "typescript",
+    "production",
+    "devtools"
+  ],
+  "bin": {
+    "mongokit": "dist/cli.js"
+  },
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hieventure/mongokit.git"
+  },
+  "homepage": "https://github.com/hieventure/mongokit#readme",
+  "bugs": {
+    "url": "https://github.com/hieventure/mongokit/issues"
+  },
+  "author": "hieventure <hieulhminh@gmail.com>",
+  "dependencies": {
+    "mongodb": "^6.3.0",
+    "inquirer": "^12.9.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.0"
+  }
+}
