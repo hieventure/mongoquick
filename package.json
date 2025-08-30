@@ -1,6 +1,6 @@
 {
   "name": "@derikhie/mongoquick",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "⚡ Simple MongoDB toolkit for Node.js - Zero config, instant setup, production-ready",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -47,6 +47,7 @@
     "url": "https://github.com/hieventure/mongoquick/issues"
   },
   "author": "hieventure <hieulhminh@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "mongodb": "^6.3.0",
     "inquirer": "^12.9.4"
